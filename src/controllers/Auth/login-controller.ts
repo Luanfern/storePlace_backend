@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Login } from "../../lib/login";
+import { Login } from "../../services/login";
 
 export class LoginController{
     public login(request: Request, response: Response, next: NextFunction) {

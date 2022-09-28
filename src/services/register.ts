@@ -1,4 +1,4 @@
-import { IUsuario } from "./Interfaces/IUsuario";
+import { IUsuario } from "../Interfaces/IUsuario";
 
 export class Register{
     

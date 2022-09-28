@@ -1,4 +1,4 @@
-import { IProduct } from "./Interfaces/IProduct"
+import { IProduct } from "../Interfaces/IProduct"
 
 export class Product{
     

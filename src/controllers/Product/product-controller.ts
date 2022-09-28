@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Product } from "../../lib/product";
+import { Product } from "../../services/product";
 
 export class ProductController{
     public getProduct(request: Request, response: Response, next: NextFunction){

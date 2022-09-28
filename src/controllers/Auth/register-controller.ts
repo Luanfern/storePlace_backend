@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Register } from "../../lib/register";
+import { Register } from "../../services/register";
 
 export class RegisterController{
     public register(request: Request, response: Response, next: NextFunction){
