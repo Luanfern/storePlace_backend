@@ -1,14 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { Login } from "../../services/login";
 
-export class LoginController{
-    public login(request: Request, response: Response, next: NextFunction) {
+export class LoginController {
+    public async login(request: Request, response: Response, next: NextFunction) {
         try {
             const req = request.body
-            const login = new Login().login({ name: req.name, password: req.password})
-            return response.status(200).send(login)
+            const login = await new Login().login({
+                email: req.email,
+                password: req.password
+            })
+            response.status(200).send(login)
         } catch (error) {
-            return response.status(200).send(error)
+            response.status(200).send(error)
         }
     }
 }
