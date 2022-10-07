@@ -9,9 +9,9 @@ export class LoginController {
                 email: req.email,
                 password: req.password
             })
-            response.status(200).send(login)
-        } catch (error) {
-            response.status(200).send(error)
+            response.status(200).send({login})
+        } catch (error: any) {
+            response.status(400).send({erro:error.message})
         }
     }
 }

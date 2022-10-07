@@ -14,7 +14,11 @@ export class Login{
             const loginRepository = await new LoginRepository().handle(loginUser)
             const loginToken = new TokenFunctions().generateToken(loginRepository)
             return loginToken
-        } catch (error) {
+        } catch (error: any) {
+            console.log(error.name)
+            if (error.name == 'Error') {
+                throw Error(`Problemas na conexão com o servidor!`)   
+            }
             throw error
         }
     }        
