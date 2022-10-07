@@ -15,19 +15,5 @@ export class RegisterRepository {
             }
         })
         return registerUser.id
-
-        /**
-         *  await prisma.user.create({
-            data: {
-                name: register.name!,
-                email: register.email,
-                password: register.password,
-                telefone: register.telefone!,
-                saldo: register.saldo
-            }
-            }).then((ret)=>{
-                return ret.id
-            })
-         */
     }
 }

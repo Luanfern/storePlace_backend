@@ -14,8 +14,8 @@ export class RegisterController{
             })
             console.log('controller!')
             response.status(200).send(register)
-        } catch (error) {
-            response.status(200).send(error)
+        } catch (error: any) {
+            response.status(400).send({erro: error.message})
         }
     }
 }
