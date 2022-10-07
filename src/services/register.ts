@@ -1,5 +1,5 @@
-import { CryptoFunctions } from "../controllers/Functions/crypto-functions";
-import { TokenFunctions } from "../controllers/Functions/token-functions";
+import { CryptoFunctions } from "./Functions/crypto-functions";
+import { TokenFunctions } from "./Functions/token-functions";
 import { IUsuario } from "../Interfaces/IUsuario";
 import { RegisterRepository } from "../repositories/Auth-repository/Register-repository";
 
