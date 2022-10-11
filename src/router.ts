@@ -13,6 +13,8 @@ router.get('', (req: Request, res: Response, next: NextFunction) => {
 
 //LOGIN
 router.post('/login/', new LoginController().login)
+router.post('/login/tokenAuth', new LoginController().loginByToken)
+
 
 //REGISTER
 router.post('/register/', new RegisterController().register)
