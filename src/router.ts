@@ -16,6 +16,7 @@ router.post('/login/', new LoginController().login)
 
 //REGISTER
 router.post('/register/', new RegisterController().register)
+router.post('/registerveiu/', new RegisterController().existEmail)
 
 //PRODUCT
 router.get('/product/:id', new ProductController().getProduct)
