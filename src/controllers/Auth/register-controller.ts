@@ -13,7 +13,7 @@ export class RegisterController{
                 saldo: req.saldo
             })
             console.log('controller!')
-            response.status(200).send(register)
+            response.status(200).send({token: register})
         } catch (error: any) {
             response.status(400).send({erro: error.message})
         }
