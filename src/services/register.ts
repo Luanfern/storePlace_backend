@@ -22,4 +22,13 @@ export class Register{
             throw Error(`Problemas com o servidor!`)   
         }
     }
+
+    async existEmail(email: string): Promise<any> {
+        try {            
+            const existEmailQuantity = await new RegisterRepository().verifyExistEmail(email)
+            return existEmailQuantity
+        } catch (error: any) {
+            throw Error(`Problemas com o servidor!`)   
+        }
+    }
 }

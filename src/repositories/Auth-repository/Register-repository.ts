@@ -16,4 +16,14 @@ export class RegisterRepository {
         })
         return registerUser.id
     }
+
+    async verifyExistEmail(email: string): Promise<any> {
+        const prisma = new PrismaClient()
+        const emailExists = await prisma.user.count({
+            where: {
+                email
+            }
+        })
+        return emailExists
+    }
 }

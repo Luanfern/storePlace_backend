@@ -18,4 +18,18 @@ export class RegisterController{
             response.status(400).send({erro: error.message})
         }
     }
+
+    public async existEmail(request: Request, response: Response){
+        try {
+            const req = request.body
+            const emailExist = await new Register().existEmail(req.email)
+            if (emailExist > 0) {
+                response.status(200).send(false)   
+            }else {
+                response.status(200).send(true)
+            }  
+        } catch (error: any) {
+            response.status(400).send({erro: error.message})
+        }
+    }
 }
