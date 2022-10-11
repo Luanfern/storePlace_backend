@@ -17,9 +17,14 @@ export class Login{
         } catch (error: any) {
             console.log(error.name)
             if (error.name == 'Error') {
-                throw Error(`Problemas na conexão com o servidor!`)   
+                throw Error(`Problemas na conexão com o servidor!`)
             }
-            throw error
+            switch (error.message) {
+                case 'No User found':
+                    throw Error(`Usuário não encontrado.`)
+                default:
+                    throw Error(`Ocorreu algum problema. Tente novamente mais tarde!`)
+            }
         }
     }        
 
