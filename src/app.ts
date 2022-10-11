@@ -1,11 +1,15 @@
 import express from "express"
 import { router } from './router'
+import  cors  from "cors"
 
 export class App{
     
     public app: express.Application
     public port: number  = 3000
     public routes: express.IRouter
+    public configCors: Object ={
+        "Access-Control-Allow-Origin": "*"
+    }
 
     constructor(){
         this.app = express()
@@ -17,6 +21,7 @@ export class App{
 
     setMiddlewares(){
         this.app.use(express.json())
+        this.app.use(cors(this.configCors))
     }
 
     setRoutes(){
