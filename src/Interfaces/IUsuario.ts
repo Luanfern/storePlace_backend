@@ -3,5 +3,5 @@ export interface IUsuario{
     email: string,
     password: string
     telefone?: string,
-    saldo?: number
+    currency?: number
 }

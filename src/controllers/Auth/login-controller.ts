@@ -18,8 +18,8 @@ export class LoginController {
 
     public async loginByToken(request: Request, response: Response) {
         try {
-            //console.log(request.headers['authorization'])
-            //console.log(request.headers)
+            console.log(request.headers['authorization'])
+            console.log(request.headers)
             if (request.headers['authorization']) {
                 const bearerToken = request.headers['authorization']?.split(" ")[1]
                 const validate = await new TokenValidator().handle(bearerToken).

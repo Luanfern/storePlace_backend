@@ -28,7 +28,7 @@ export class LoginRepository {
                 email: true,
                 password: true,
                 telefone: true,
-                saldo: true,
+                currency: true,
             }
         })
 

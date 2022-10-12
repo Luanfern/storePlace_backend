@@ -10,7 +10,7 @@ export class RegisterController{
                 email: req.email,
                 password: req.password,
                 telefone: req.telefone,
-                saldo: req.saldo
+                currency: req.currency
             })
             console.log('controller!')
             response.status(200).send({token: register})

@@ -11,7 +11,7 @@ export class RegisterRepository {
                 email: register.email,
                 password: register.password,
                 telefone: register.telefone!,
-                saldo: register.saldo
+                currency: register.currency
             }
         })
         return registerUser.id
