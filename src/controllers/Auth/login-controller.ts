@@ -18,6 +18,8 @@ export class LoginController {
 
     public async loginByToken(request: Request, response: Response) {
         try {
+            //console.log(request.headers['authorization'])
+            //console.log(request.headers)
             if (request.headers['authorization']) {
                 const bearerToken = request.headers['authorization']?.split(" ")[1]
                 const validate = await new TokenValidator().handle(bearerToken).
@@ -27,10 +29,10 @@ export class LoginController {
                     }
                 )
                 console.log(validate)
-                if (validate == null) {
-                    return response.status(200).send({msg: 'ERRO ?'})
+                if (validate != null) {
+                    return response.status(200).send(validate)
                 } else {
-                    return response.status(200).send({msg: validate})
+                    return response.status(200).send({msg: 'ERRO'})
                 }
             }else {
                 return response.status(200).send({msg: 'no token to Validate!'})
