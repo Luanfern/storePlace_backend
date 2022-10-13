@@ -13,9 +13,9 @@ export class RegisterController{
                 currency: req.currency
             })
             console.log('controller!')
-            response.status(200).send({token: register})
+            response.status(200).send({token: register, status: true})
         } catch (error: any) {
-            response.status(400).send({erro: error.message})
+            response.status(400).send({erro: error.message, status: false})
         }
     }
 
@@ -29,7 +29,7 @@ export class RegisterController{
                 response.status(200).send(true)
             }  
         } catch (error: any) {
-            response.status(400).send({erro: error.message})
+            response.status(400).send({erro: error.message, status: false})
         }
     }
 }

@@ -10,9 +10,9 @@ export class LoginController {
                 email: req.email,
                 password: req.password
             })
-            response.status(200).send({token: login})
+            response.status(200).send({token: login, status: true})
         } catch (error: any) {
-            response.status(400).send({erro:error.message})
+            response.status(400).send({erro:error.message, status: false})
         }
     }
 
@@ -28,17 +28,17 @@ export class LoginController {
                         return valid
                     }
                 )
-                console.log(validate)
                 if (validate != null) {
-                    return response.status(200).send(validate)
+                    return response.status(200).send(validate.error ? {error: validate.error, status: false} : {acc: validate, status: true,  ignore: true})
                 } else {
-                    return response.status(200).send({msg: 'ERRO'})
+                    return response.status(200).send({error: 'ERRO', status: false})
                 }
             }else {
-                return response.status(200).send({msg: 'no token to Validate!'})
+                return response.status(200).send({error: 'Sem token para validar!', status: false, ignore: true})
             }
         } catch (error: any) {
-            response.status(400).send({erro:error.message})
+            console.log(error.message)
+            response.status(400).send({error:error.message, status: false})
         }
     }
 }

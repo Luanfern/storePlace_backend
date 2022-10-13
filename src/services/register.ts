@@ -11,9 +11,16 @@ export class Register{
         try {            
             let registerUser = register;
             registerUser.password = new CryptoFunctions().encript(register.password)
-            const getFromRepRegister = await new RegisterRepository().handle(registerUser)
-            const generateToken = new TokenFunctions().generateToken(getFromRepRegister)
-            return {generateToken}
+            const getFromRepRegister = await new RegisterRepository().handle(registerUser).
+            then(acc => {
+                console.log('ID')
+                console.log('ID')
+                console.log(acc)
+                console.log('ID')
+                console.log('ID')
+                return new TokenFunctions().generateToken(acc)
+            })
+            return getFromRepRegister
         } catch (error: any) {
             console.log(error)
             if (error.code == 'P2002') {

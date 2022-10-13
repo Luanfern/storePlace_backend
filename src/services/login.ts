@@ -12,6 +12,7 @@ export class Login{
             let loginUser = login;
             loginUser.password = new CryptoFunctions().encript(login.password)
             const loginRepository = await new LoginRepository().handle(loginUser)
+            console.log(loginRepository)
             const loginToken = new TokenFunctions().generateToken(loginRepository)
             return loginToken
         } catch (error: any) {
@@ -33,8 +34,8 @@ export class Login{
             const loginByIdRepository = await new LoginRepository().loginById(id)
             return loginByIdRepository
         } catch (error: any) {
-            console.log(error.name)
             if (error.name == 'Error') {
+                console.log(error)
                 throw Error(`Problemas na conexão com o servidor!`)
             }
             switch (error.message) {

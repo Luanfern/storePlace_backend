@@ -6,18 +6,21 @@ export class LoginRepository {
         const prisma = new PrismaClient()
         const loginRequest = await prisma.user.findFirstOrThrow({
             where: {
-                email: login.email,
-                password: login.password
+                AND: [
+                    {email: login.email},
+                    {password: login.password}
+                ]
             },
             select: {
                 id: true,
             }
         })
 
-        return loginRequest
+        return loginRequest.id
     }
 
     async loginById(id: number): Promise<any> {
+        console.log(id)
         const prisma = new PrismaClient()
         const loginByIdRequest = await prisma.user.findFirstOrThrow({
             where: {
@@ -31,7 +34,6 @@ export class LoginRepository {
                 currency: true,
             }
         })
-
         return loginByIdRequest
     }
 }

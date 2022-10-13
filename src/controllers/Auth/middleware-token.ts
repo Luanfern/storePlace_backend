@@ -16,10 +16,10 @@ export class MiddlewareToken{
             if (validate == null) {
                 next()
             } else {
-                return response.status(200).send({erro: validate})
+                return response.status(200).send({erro: validate, status: true})
             }
         }else {
-            return response.status(200).send({msg: 'no token to Validate!'})
+            return response.status(200).send({msg: 'no token to Validate!', status: false})
         }
     }
 }

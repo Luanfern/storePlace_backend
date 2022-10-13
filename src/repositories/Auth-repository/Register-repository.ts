@@ -4,7 +4,6 @@ import { IUsuario } from "../../Interfaces/IUsuario";
 export class RegisterRepository {
     async handle(register: IUsuario): Promise<any> {
         const prisma = new PrismaClient()
-        console.log('repository!')
         const registerUser = await prisma.user.create({
             data: {
                 name: register.name!,
