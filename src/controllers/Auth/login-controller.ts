@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { TokenFunctions } from "../../services/Functions/token-functions";
 import { Login } from "../../services/login";
 import { TokenValidator } from "../../services/token-validator";
 
@@ -18,16 +19,10 @@ export class LoginController {
 
     public async loginByToken(request: Request, response: Response) {
         try {
-            console.log(request.headers['authorization'])
-            console.log(request.headers)
-            if (request.headers['authorization']) {
-                const bearerToken = request.headers['authorization']?.split(" ")[1]
-                const validate = await new TokenValidator().handle(bearerToken).
-                then(
-                    valid => {
-                        return valid
-                    }
-                )
+            const id = response.locals.token.id
+            console.log('tk bearer-id', id)
+            if (id) {
+                const validate = await new Login().loginById(id).then(ac => {return ac})
                 if (validate != null) {
                     return response.status(200).send(validate.error ? {error: validate.error, status: false} : {acc: validate, status: true,  ignore: true})
                 } else {

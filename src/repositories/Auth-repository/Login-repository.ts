@@ -20,7 +20,6 @@ export class LoginRepository {
     }
 
     async loginById(id: number): Promise<any> {
-        console.log(id)
         const prisma = new PrismaClient()
         const loginByIdRequest = await prisma.user.findFirstOrThrow({
             where: {

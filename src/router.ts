@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { LoginController } from "./controllers/Auth/login-controller";
 import { MiddlewareToken } from "./controllers/Auth/middleware-token";
 import { RegisterController } from "./controllers/Auth/register-controller";
+import { UserController } from "./controllers/Auth/user-controller";
 import { ProductController } from "./controllers/Product/product-controller";
 
 const router: express.IRouter = express.Router()
@@ -13,12 +14,15 @@ router.get('', (req: Request, res: Response, next: NextFunction) => {
 
 //LOGIN
 router.post('/login/', new LoginController().login)
-router.post('/login/tokenAuth', new LoginController().loginByToken)
+router.post('/login/tokenAuth', new MiddlewareToken().handle, new LoginController().loginByToken)
 
 
 //REGISTER
 router.post('/register/', new RegisterController().register)
 router.post('/registerveiu/', new RegisterController().existEmail)
+
+//USER
+router.post('/user/updateCurrency', new MiddlewareToken().handle, new UserController().updateCurrency)
 
 //PRODUCT
 router.get('/product/:id', new ProductController().getProduct)

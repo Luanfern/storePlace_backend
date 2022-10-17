@@ -7,15 +7,9 @@ export class TokenValidator{
         try {
             const verifyToken = new TokenFunctions().verifyToken(bearerToken) as any
             const id = verifyToken.id
-            console.log('VT',verifyToken)
-            const login = await new Login().loginById(id).then(
-                ac => {
-                    console.log('ERRO',ac)
-                    return ac
-                }
-            )
-            return login
+            return id
         } catch (error: any) {
+            console.log('erro', error)
             if (error['message'] == 'jwt expired') {
                 return {error: 'Token de acesso expirado! Logue para gerar um novo token.', status: false}
             }
