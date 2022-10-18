@@ -12,10 +12,11 @@ export class ProductController{
         }
     }
 
-    public getAllProduct(request: Request, response: Response, next: NextFunction){
+    public async getAllProduct(request: Request, response: Response, next: NextFunction){
         try {
             const search = request.params.search ?? '*'
-            const read = new Product().readProduct(false, search)
+            console.log('SEARCH: ',search)
+            const read = await new Product().readProduct(false, search)
             response.status(200).send(read)
         } catch (error) {
             response.status(200).send(error)

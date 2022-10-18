@@ -1,14 +1,16 @@
 import { IProduct } from "../Interfaces/IProduct"
+import { ProductRepository } from "../repositories/Product-repository/product-repository"
 
 export class Product{
     
     constructor(){}
 
-    readProduct(uniqueReturn: boolean = true, searchBy: string): any{
+    async readProduct(uniqueReturn: boolean = false, searchBy: string): Promise<any>{
         if (uniqueReturn) {
             return {returnOne: searchBy}
         } else{
-            return {return: searchBy}
+            const products = await new ProductRepository().getAllProducts(searchBy)
+            return {return: products}
         }
     }
 
