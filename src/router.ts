@@ -3,6 +3,7 @@ import { LoginController } from "./controllers/Auth/login-controller";
 import { MiddlewareToken } from "./controllers/Auth/middleware-token";
 import { RegisterController } from "./controllers/Auth/register-controller";
 import { UserController } from "./controllers/Auth/user-controller";
+import { CategoriesController } from "./controllers/Categories/categories-controller";
 import { ProductController } from "./controllers/Product/product-controller";
 
 const router: express.IRouter = express.Router()
@@ -31,4 +32,8 @@ router.post('/product/delete', new MiddlewareToken().handle, new ProductControll
 router.post('/product/edit', new MiddlewareToken().handle, new ProductController().editProduct)
 router.post('/product/publish', new MiddlewareToken().handle, new ProductController().publishProduct)
 router.post('/product/buy', new MiddlewareToken().handle, new ProductController().buyProduct)
+
+//CATEGORIES
+router.get('/categories/', new CategoriesController().listCategories)
+
 export { router }
