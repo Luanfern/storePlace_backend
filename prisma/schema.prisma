@@ -31,7 +31,7 @@ model Product {
   code String
   description String
   price Float @default(0.00)
-  category Int
+  categoryIds Int[]
   image String
 
   @@map("products")
