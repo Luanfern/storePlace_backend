@@ -27,7 +27,8 @@ router.post('/user/updateCurrency', new MiddlewareToken().handle, new UserContro
 
 //PRODUCT
 router.get('/product/:id', new ProductController().getProduct)
-router.get('/products/:search?', new ProductController().getAllProduct)
+router.post('/products/:search?', new ProductController().getAllProduct)
+router.post('/products/cat/:search?', new ProductController().getAllProductbyCat)
 router.post('/product/delete', new MiddlewareToken().handle, new ProductController().deleteProduct)
 router.post('/product/edit', new MiddlewareToken().handle, new ProductController().editProduct)
 router.post('/product/publish', new MiddlewareToken().handle, new ProductController().publishProduct)

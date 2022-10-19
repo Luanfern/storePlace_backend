@@ -5,7 +5,7 @@ export class ProductController{
     public getProduct(request: Request, response: Response, next: NextFunction){
         try {
             const id = request.params.id
-            const read = new Product().readProduct(true, id)
+            const read = new Product().readProduct(true, id, request.body.pagination)
             response.status(200).send(read)
         } catch (error) {
             response.status(200).send(error)
@@ -16,7 +16,18 @@ export class ProductController{
         try {
             const search = request.params.search ?? '*'
             console.log('SEARCH: ',search)
-            const read = await new Product().readProduct(false, search)
+            const read = await new Product().readProduct(false, search, request.body.pagination)
+            response.status(200).send(read)
+        } catch (error) {
+            response.status(200).send(error)
+        }
+    }
+
+    public async getAllProductbyCat(request: Request, response: Response, next: NextFunction){
+        try {
+            const search = parseInt(request.params.search)
+            console.log('SEARCH: ',search)
+            const read = await new Product().readProductByCat(search, request.body.pagination)
             response.status(200).send(read)
         } catch (error) {
             response.status(200).send(error)
