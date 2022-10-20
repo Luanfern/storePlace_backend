@@ -13,8 +13,16 @@ export class ProductRepository {
             skip: initial,
             take: quantity,
         })
+        const countProducts = await prisma.product.count({
+            where: {
+                'name': {
+                    'contains': searchBy != '*' ? searchBy : '',
+                    'mode': "insensitive", 
+                },
+            },
+        })
 
-        return getProducts
+        return {products: getProducts, count: countProducts}
     }
 
     async getAllProductsByCat(searchBy: number, initial: number, quantity: number): Promise<any> {
@@ -28,8 +36,15 @@ export class ProductRepository {
             skip: initial,
             take: quantity,
         })
+        const countProducts = await prisma.product.count({
+            where: {
+                category_id: {
+                    hasEvery: searchBy
+                },
+            },
+        })
 
-        return getProducts
+        return {products: getProducts, count: countProducts}
     }
     
 }
