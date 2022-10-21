@@ -13,6 +13,7 @@ export class ProductRepository {
             skip: initial,
             take: quantity,
         })
+
         const countProducts = await prisma.product.count({
             where: {
                 'name': {
