@@ -9,6 +9,7 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
+  shoppingKartId Int @unique @default(0)
   name String 
   email String @unique
   password String
@@ -16,6 +17,13 @@ model User {
   currency Float @default(0.00)
 
   @@map("users")
+}
+
+model ShoppingKart {
+  id Int @id @default(autoincrement())
+  listProducts Int[]
+
+  @@map("shoppingkart")
 }
 
 model Category {
@@ -35,4 +43,13 @@ model Product {
   category_id Int[]
 
   @@map("products")
+}
+
+model Extract {
+  id Int @id @default(autoincrement())
+  userId Int
+  total_price Float
+  listProducts Int[]
+
+  @@map("extracts")
 }
