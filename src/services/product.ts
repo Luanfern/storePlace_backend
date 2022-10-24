@@ -7,7 +7,7 @@ export class Product {
 
     async readProduct(uniqueReturn: boolean = false, searchBy: string, pagination: number[] = [0, 1]): Promise<any> {
         if (uniqueReturn) {
-            const product = await new ProductRepository().getProduct(parseInt(searchBy))
+            const product = await new ProductRepository().getProduct(searchBy)
             return product
         } else {
             const products = await new ProductRepository().getAllProducts(searchBy, pagination[0], pagination[1])

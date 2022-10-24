@@ -5,8 +5,8 @@ export class ProductController{
     public async getProduct(request: Request, response: Response, next: NextFunction){
         try {
             const id = request.params.id
-            const read = await new Product().readProduct(true, id)
-            response.status(200).send({read: read})
+            const product = await new Product().readProduct(true, id)
+            response.status(200).send(product)
         } catch (error) {
             response.status(200).send(error)
         }

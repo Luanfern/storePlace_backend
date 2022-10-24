@@ -48,15 +48,15 @@ export class ProductRepository {
         return {products: getProducts, count: countProducts}
     }
 
-    async getProduct(searchBy: number): Promise<any> {
+    async getProduct(searchBy: string): Promise<any> {
         const prisma = new PrismaClient()
         const getProduct = await prisma.product.findUniqueOrThrow({
             where: {
-                id: searchBy,
+                code: searchBy,
             },
         })
 
-        return {product: getProduct}
+        return  getProduct
     }
 
     
