@@ -47,5 +47,17 @@ export class ProductRepository {
 
         return {products: getProducts, count: countProducts}
     }
+
+    async getProduct(searchBy: number): Promise<any> {
+        const prisma = new PrismaClient()
+        const getProduct = await prisma.product.findUniqueOrThrow({
+            where: {
+                id: searchBy,
+            },
+        })
+
+        return {product: getProduct}
+    }
+
     
 }

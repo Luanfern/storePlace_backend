@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { Product } from "../../services/product";
 
 export class ProductController{
-    public getProduct(request: Request, response: Response, next: NextFunction){
+    public async getProduct(request: Request, response: Response, next: NextFunction){
         try {
             const id = request.params.id
-            const read = new Product().readProduct(true, id, request.body.pagination)
-            response.status(200).send(read)
+            const read = await new Product().readProduct(true, id)
+            response.status(200).send({read: read})
         } catch (error) {
             response.status(200).send(error)
         }

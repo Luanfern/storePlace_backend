@@ -5,9 +5,10 @@ export class Product {
 
     constructor() { }
 
-    async readProduct(uniqueReturn: boolean = false, searchBy: string, pagination: number[]): Promise<any> {
+    async readProduct(uniqueReturn: boolean = false, searchBy: string, pagination: number[] = [0, 1]): Promise<any> {
         if (uniqueReturn) {
-            return { returnOne: searchBy }
+            const product = await new ProductRepository().getProduct(parseInt(searchBy))
+            return product
         } else {
             const products = await new ProductRepository().getAllProducts(searchBy, pagination[0], pagination[1])
             return products
