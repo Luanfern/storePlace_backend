@@ -8,47 +8,47 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  shoppingKartId Int @unique @default(0)
-  name String 
-  email String @unique
-  password String
-  telefone String @unique
-  currency Float @default(0.00)
+  id             Int    @id @default(autoincrement())
+  shoppingKartId Int    @unique @default(0)
+  name           String
+  email          String @unique
+  password       String
+  telefone       String @unique
+  currency       Float  @default(0.00)
 
   @@map("users")
 }
 
-model ShoppingKart {
-  id Int @id @default(autoincrement())
-  listProducts Int[]
-
-  @@map("shoppingkart")
-}
-
 model Category {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String @unique
-  
+
   @@map("categories")
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  name String 
-  code String @unique
-  description String
-  price Float @default(0.00)
-  image String
-  category_id Int[]
+  id                      Int                       @id @default(autoincrement())
+  name                    String
+  code                    String                    @unique
+  description             String
+  price                   Float                     @default(0.00)
+  image                   String
+  category_id             Int[]
 
   @@map("products")
 }
 
+model ShoppingKart {
+  id                      Int                       @id @default(autoincrement())
+  listProducts            Int[]
+
+  @@map("shoppingkart")
+}
+
 model Extract {
-  id Int @id @default(autoincrement())
-  userId Int
-  total_price Float
+  id           Int   @id @default(autoincrement())
+  userId       Int
+  total_price  Float
   listProducts Int[]
 
   @@map("extracts")
