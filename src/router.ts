@@ -5,6 +5,7 @@ import { RegisterController } from "./controllers/Auth/register-controller";
 import { UserController } from "./controllers/Auth/user-controller";
 import { CategoriesController } from "./controllers/Categories/categories-controller";
 import { ProductController } from "./controllers/Product/product-controller";
+import { ShoppingKartController } from "./controllers/ShoppingKart/shopping-kart-controller";
 
 const router: express.IRouter = express.Router()
 
@@ -36,5 +37,10 @@ router.post('/product/buy', new MiddlewareToken().handle, new ProductController(
 
 //CATEGORIES
 router.get('/categories/', new CategoriesController().listCategories)
+
+//SHOPPINGKART
+router.post('/shoppingKart/products', new ShoppingKartController().getShoppingkart)
+router.post('/shoppingKart/addProduct', new ShoppingKartController().addToShoppingkart)
+router.post('/shoppingKart/removeProduct', new ShoppingKartController().removeFromShoppingkart)
 
 export { router }

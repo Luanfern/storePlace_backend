@@ -1,12 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 import { IUsuario } from "../../Interfaces/IUsuario";
+import { ShoppingKartRepository } from "../Shoppin-Kart-repository";
 
 export class RegisterRepository {
-    async handle(register: IUsuario): Promise<any> {
+    async handle(register: IUsuario, kartId: number): Promise<any> {
         const prisma = new PrismaClient()
+
         const registerUser = await prisma.user.create({
             data: {
                 name: register.name!,
+                shoppingKartId: kartId,
                 email: register.email,
                 password: register.password,
                 telefone: register.telefone!,
