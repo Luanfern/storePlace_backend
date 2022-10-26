@@ -1,4 +1,4 @@
-import { ShoppingKartRepository } from '../repositories/Shoppin-Kart-repository'
+import { ShoppingKartRepository } from '../repositories/Shopping-Kart-repository/shopping-kart-repository'
 
 export class ShoppingKart{
     private repository = new ShoppingKartRepository()
