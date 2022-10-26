@@ -3,10 +3,10 @@ import { PrismaClient } from "@prisma/client";
 export class ExtractRepository {
     private prisma = new PrismaClient()
 
-    async getExtracts(userId: number): Promise<any> {
+    async getExtracts(idUser: number): Promise<any> {
         const extracts = await this.prisma.extract.findMany({
             where: {
-                userId
+                idUser
             }
         })
         return extracts
