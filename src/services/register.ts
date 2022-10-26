@@ -5,16 +5,15 @@ import { RegisterRepository } from "../repositories/Auth-repository/Register-rep
 import { ShoppingKart } from "./shopping -kart";
 
 export class Register{
-    
-    constructor(){ }
-
+    private kartRepository = new ShoppingKart()
+    private registerRepository = new RegisterRepository()
     async register(register: IUsuario): Promise<any> {
         try {
-            const kartId = await new ShoppingKart(0).createShoppingKart()
+            const kartId = await this.kartRepository.createShoppingKart()
 
             let registerUser = register;
             registerUser.password = new CryptoFunctions().encript(register.password)
-            const getFromRepRegister = await new RegisterRepository().handle(registerUser, kartId).
+            const getFromRepRegister = await this.registerRepository.handle(registerUser, kartId).
             then(acc => {
                 return new TokenFunctions().generateToken(acc)
             })
@@ -30,7 +29,7 @@ export class Register{
 
     async existEmail(email: string): Promise<any> {
         try {            
-            const existEmailQuantity = await new RegisterRepository().verifyExistEmail(email)
+            const existEmailQuantity = await this.registerRepository.verifyExistEmail(email)
             return existEmailQuantity
         } catch (error: any) {
             throw Error(`Problemas com o servidor!`)   

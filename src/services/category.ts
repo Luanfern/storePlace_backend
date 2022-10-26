@@ -1,12 +1,10 @@
 import { CategoryRepository } from "../repositories/Category-repository/category-repository";
 
 export class Category{
-    
-    constructor(){ }
-
+    private repository = new CategoryRepository()
     async listCategories(): Promise<any> {
         try {            
-            const list = await new CategoryRepository().getCategories()
+            const list = await this.repository.getCategories()
             return list
         } catch (error: any) {
             throw Error(`Problemas com o servidor!`)   

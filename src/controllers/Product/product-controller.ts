@@ -3,9 +3,10 @@ import { Product } from "../../services/product";
 
 export class ProductController{
     public async getProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const id = request.params.id
-            const product = await new Product().readProduct(true, id)
+            const product = await service.readProduct(true, id)
             response.status(200).send(product)
         } catch (error) {
             response.status(200).send(error)
@@ -13,10 +14,11 @@ export class ProductController{
     }
 
     public async getAllProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const search = request.params.search ?? '*'
             console.log('SEARCH: ',search)
-            const read = await new Product().readProduct(false, search, request.body.pagination)
+            const read = await service.readProduct(false, search, request.body.pagination)
             response.status(200).send(read)
         } catch (error) {
             response.status(200).send(error)
@@ -24,10 +26,11 @@ export class ProductController{
     }
 
     public async getAllProductbyCat(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const search = parseInt(request.params.search)
             console.log('SEARCH: ',search)
-            const read = await new Product().readProductByCat(search, request.body.pagination)
+            const read = await service.readProductByCat(search, request.body.pagination)
             response.status(200).send(read)
         } catch (error) {
             response.status(200).send(error)
@@ -35,9 +38,10 @@ export class ProductController{
     }
 
     public deleteProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const params = request.body
-            const del = new Product().deleteProduct(params.userId, params.productId)
+            const del = service.deleteProduct(params.userId, params.productId)
             response.status(200).send(del)
         } catch (error) {
             response.status(200).send(error)   
@@ -45,9 +49,10 @@ export class ProductController{
     }
 
     public editProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const params = request.body
-            const edit = new Product().updateProduct(params.userId, params.productId, params.dataProduct)
+            const edit = service.updateProduct(params.userId, params.productId, params.dataProduct)
             response.status(200).send(edit)
         } catch (error) {
             response.status(200).send(error)   
@@ -55,9 +60,10 @@ export class ProductController{
     }
 
     public publishProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         try {
             const params = request.body
-            const edit = new Product().createProduct(params.userId, params.dataProduct)
+            const edit = service.createProduct(params.userId, params.dataProduct)
             response.status(200).send(edit)
         } catch (error) {
             response.status(200).send(error)   
@@ -65,6 +71,7 @@ export class ProductController{
     }
 
     public buyProduct(request: Request, response: Response, next: NextFunction){
+        const service = new Product()
         response.status(200).send({return: 'buy Product'})
     }
 }

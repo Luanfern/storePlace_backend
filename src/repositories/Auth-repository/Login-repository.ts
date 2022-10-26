@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import { IUsuario } from "../../Interfaces/IUsuario";
 
 export class LoginRepository {
+    private prisma = new PrismaClient()
     async handle(login: IUsuario): Promise<any> {
-        const prisma = new PrismaClient()
-        const loginRequest = await prisma.user.findFirstOrThrow({
+        const loginRequest = await this.prisma.user.findFirstOrThrow({
             where: {
                 AND: [
                     {email: login.email},
@@ -20,8 +20,7 @@ export class LoginRepository {
     }
 
     async loginById(id: number): Promise<any> {
-        const prisma = new PrismaClient()
-        const loginByIdRequest = await prisma.user.findFirstOrThrow({
+        const loginByIdRequest = await this.prisma.user.findFirstOrThrow({
             where: {
                 id
             },

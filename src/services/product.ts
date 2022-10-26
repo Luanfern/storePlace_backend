@@ -2,21 +2,19 @@ import { IProduct } from "../Interfaces/IProduct"
 import { ProductRepository } from "../repositories/Product-repository/product-repository"
 
 export class Product {
-
-    constructor() { }
-
+    private repository = new ProductRepository()
     async readProduct(uniqueReturn: boolean = false, searchBy: string, pagination: number[] = [0, 1]): Promise<any> {
         if (uniqueReturn) {
-            const product = await new ProductRepository().getProduct(searchBy)
+            const product = await this.repository.getProduct(searchBy)
             return product
         } else {
-            const products = await new ProductRepository().getAllProducts(searchBy, pagination[0], pagination[1])
+            const products = await this.repository.getAllProducts(searchBy, pagination[0], pagination[1])
             return products
         }
     }
 
     async readProductByCat(searchBy: number, pagination: number[]): Promise<any> {
-        const products = await new ProductRepository().getAllProductsByCat(searchBy, pagination[0], pagination[1])
+        const products = await this.repository.getAllProductsByCat(searchBy, pagination[0], pagination[1])
         return products
     }
 

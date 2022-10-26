@@ -4,14 +4,12 @@ import { IUsuario } from "../Interfaces/IUsuario"
 import { LoginRepository } from "../repositories/Auth-repository/Login-repository"
 
 export class Login{
-    
-    constructor(){}
-
+    private repository = new LoginRepository()
     async login(login: IUsuario): Promise<any> {
         try {
             let loginUser = login;
             loginUser.password = new CryptoFunctions().encript(login.password)
-            const loginRepository = await new LoginRepository().handle(loginUser)
+            const loginRepository = await this.repository.handle(loginUser)
             console.log(loginRepository)
             const loginToken = new TokenFunctions().generateToken(loginRepository)
             return loginToken
@@ -31,7 +29,7 @@ export class Login{
 
     async loginById(id: number): Promise<any> {
         try {
-            const loginByIdRepository = await new LoginRepository().loginById(id)
+            const loginByIdRepository = await this.repository.loginById(id)
             return loginByIdRepository
         } catch (error: any) {
             if (error.name == 'Error') {

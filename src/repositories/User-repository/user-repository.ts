@@ -2,10 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import { IUsuario } from "../../Interfaces/IUsuario";
 
 export class UserRepository {
-
+    private prisma = new PrismaClient()
     async getInfoById(id: number): Promise<any> {
-        const prisma = new PrismaClient()
-        const getInfo = await prisma.user.findFirstOrThrow({
+        const getInfo = await this.prisma.user.findFirstOrThrow({
             where: {
                 id
             }
@@ -14,8 +13,7 @@ export class UserRepository {
     }
 
     async updateCurrency(id: number, updateCurrencyValue: number): Promise<any> {
-        const prisma = new PrismaClient()
-        const currency = await prisma.user.update({
+        const currency = await this.prisma.user.update({
             data: {
                 currency: updateCurrencyValue
             },

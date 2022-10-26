@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
 export class CategoryRepository {
+    private prisma = new PrismaClient()
     async getCategories(): Promise<any> {
-        const prisma = new PrismaClient()
-        const getCategories = await prisma.category.findMany()
+        const getCategories = await this.prisma.category.findMany()
         return getCategories
     }
 }

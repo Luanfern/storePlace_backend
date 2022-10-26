@@ -1,12 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { IUsuario } from "../../Interfaces/IUsuario";
-import { ShoppingKartRepository } from "../Shoppin-Kart-repository";
 
 export class RegisterRepository {
+    private prisma = new PrismaClient()
     async handle(register: IUsuario, kartId: number): Promise<any> {
-        const prisma = new PrismaClient()
-
-        const registerUser = await prisma.user.create({
+        const registerUser = await this.prisma.user.create({
             data: {
                 name: register.name!,
                 shoppingKartId: kartId,
@@ -20,8 +18,7 @@ export class RegisterRepository {
     }
 
     async verifyExistEmail(email: string): Promise<any> {
-        const prisma = new PrismaClient()
-        const emailExists = await prisma.user.count({
+        const emailExists = await this.prisma.user.count({
             where: {
                 email
             }

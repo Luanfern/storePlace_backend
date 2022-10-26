@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
 export class ProductRepository {
+    private prisma = new PrismaClient()
     async getAllProducts(searchBy: string, initial: number, quantity: number): Promise<any> {
-        const prisma = new PrismaClient()
-        const getProducts = await prisma.product.findMany({
+        const getProducts = await this.prisma.product.findMany({
             where: {
                 'name': {
                     'contains': searchBy != '*' ? searchBy : '',
@@ -14,7 +14,7 @@ export class ProductRepository {
             take: quantity,
         })
 
-        const countProducts = await prisma.product.count({
+        const countProducts = await this.prisma.product.count({
             where: {
                 'name': {
                     'contains': searchBy != '*' ? searchBy : '',
@@ -27,8 +27,7 @@ export class ProductRepository {
     }
 
     async getAllProductsByCat(searchBy: number, initial: number, quantity: number): Promise<any> {
-        const prisma = new PrismaClient()
-        const getProducts = await prisma.product.findMany({
+        const getProducts = await this.prisma.product.findMany({
             where: {
                 category_id: {
                     hasEvery: searchBy
@@ -37,7 +36,7 @@ export class ProductRepository {
             skip: initial,
             take: quantity,
         })
-        const countProducts = await prisma.product.count({
+        const countProducts = await this.prisma.product.count({
             where: {
                 category_id: {
                     hasEvery: searchBy
@@ -49,8 +48,7 @@ export class ProductRepository {
     }
 
     async getProduct(searchBy: string): Promise<any> {
-        const prisma = new PrismaClient()
-        const getProduct = await prisma.product.findUniqueOrThrow({
+        const getProduct = await this.prisma.product.findUniqueOrThrow({
             where: {
                 code: searchBy,
             },
