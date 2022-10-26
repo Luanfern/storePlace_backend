@@ -4,6 +4,7 @@ import { MiddlewareToken } from "./controllers/Auth/middleware-token";
 import { RegisterController } from "./controllers/Auth/register-controller";
 import { UserController } from "./controllers/Auth/user-controller";
 import { CategoriesController } from "./controllers/Categories/categories-controller";
+import { ExtractController } from "./controllers/Extract/extract-controller";
 import { ProductController } from "./controllers/Product/product-controller";
 import { ShoppingKartController } from "./controllers/ShoppingKart/shopping-kart-controller";
 
@@ -14,33 +15,47 @@ router.get('', (req: Request, res: Response, next: NextFunction) => {
     res.status(200).send('HOME')
 })
 
+//CONTROLLERS
+const loginController = new LoginController()
+const registerController = new RegisterController()
+const userController = new UserController()
+const productController = new ProductController()
+const categoriesController = new CategoriesController()
+const shoppingKartController = new ShoppingKartController()
+const extractController = new ExtractController()
+const middlewareToken = new MiddlewareToken()
+
 //LOGIN
-router.post('/login/', new LoginController().login)
-router.post('/login/tokenAuth', new MiddlewareToken().handle, new LoginController().loginByToken)
+router.post('/login/', loginController.login)
+router.post('/login/tokenAuth', middlewareToken.handle, loginController.loginByToken)
 
 
 //REGISTER
-router.post('/register/', new RegisterController().register)
-router.post('/registerveiu/', new RegisterController().existEmail)
+router.post('/register/', registerController.register)
+router.post('/registerveiu/', registerController.existEmail)
 
 //USER
-router.post('/user/updateCurrency', new MiddlewareToken().handle, new UserController().updateCurrency)
+router.post('/user/updateCurrency', middlewareToken.handle, userController.updateCurrency)
 
 //PRODUCT
-router.get('/product/:id', new ProductController().getProduct)
-router.post('/products/:search?', new ProductController().getAllProduct)
-router.post('/products/cat/:search?', new ProductController().getAllProductbyCat)
-router.post('/product/delete', new MiddlewareToken().handle, new ProductController().deleteProduct)
-router.post('/product/edit', new MiddlewareToken().handle, new ProductController().editProduct)
-router.post('/product/publish', new MiddlewareToken().handle, new ProductController().publishProduct)
-router.post('/product/buy', new MiddlewareToken().handle, new ProductController().buyProduct)
+router.get('/product/:id', productController.getProduct)
+router.post('/products/:search?', productController.getAllProduct)
+router.post('/products/cat/:search?', productController.getAllProductbyCat)
+router.post('/product/delete', middlewareToken.handle, productController.deleteProduct)
+router.post('/product/edit', middlewareToken.handle, productController.editProduct)
+router.post('/product/publish', middlewareToken.handle, productController.publishProduct)
+router.post('/product/buy', middlewareToken.handle, productController.buyProduct)
 
 //CATEGORIES
-router.get('/categories/', new CategoriesController().listCategories)
+router.get('/categories/', categoriesController.listCategories)
 
 //SHOPPINGKART
-router.post('/shoppingKart/products', new MiddlewareToken().handle, new ShoppingKartController().getShoppingkart)
-router.post('/shoppingKart/addProduct', new MiddlewareToken().handle, new ShoppingKartController().addToShoppingkart)
-router.post('/shoppingKart/removeProduct', new MiddlewareToken().handle, new ShoppingKartController().removeFromShoppingkart)
+router.post('/shoppingKart/products', middlewareToken.handle, shoppingKartController.getShoppingkart)
+router.post('/shoppingKart/addProduct', middlewareToken.handle, shoppingKartController.addToShoppingkart)
+router.post('/shoppingKart/removeProduct', middlewareToken.handle, shoppingKartController.removeFromShoppingkart)
+
+//EXTRACT
+router.post('/extracts/', middlewareToken.handle, extractController.getExtracts)
+router.post('/extracts/saveExtract', middlewareToken.handle, extractController.saveExtract)
 
 export { router }
