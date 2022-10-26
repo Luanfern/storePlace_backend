@@ -39,8 +39,8 @@ router.post('/product/buy', new MiddlewareToken().handle, new ProductController(
 router.get('/categories/', new CategoriesController().listCategories)
 
 //SHOPPINGKART
-router.post('/shoppingKart/products', new ShoppingKartController().getShoppingkart)
-router.post('/shoppingKart/addProduct', new ShoppingKartController().addToShoppingkart)
-router.post('/shoppingKart/removeProduct', new ShoppingKartController().removeFromShoppingkart)
+router.post('/shoppingKart/products', new MiddlewareToken().handle, new ShoppingKartController().getShoppingkart)
+router.post('/shoppingKart/addProduct', new MiddlewareToken().handle, new ShoppingKartController().addToShoppingkart)
+router.post('/shoppingKart/removeProduct', new MiddlewareToken().handle, new ShoppingKartController().removeFromShoppingkart)
 
 export { router }
