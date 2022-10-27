@@ -55,7 +55,9 @@ export class Product {
             await extractRepo.saveExtracts(userId, productsSumShoppingKart, productsIds)
             await shoppingKartRepo.saveItemKart(userInfos.shoppingKartId, '{}')
 
-            return {status: true, message: 'compra realizada com sucesso!'}
+            const newCurrency = await userRepo.getInfoById(userId)
+
+            return {status: true, message: 'compra realizada com sucesso!', currency: newCurrency.currency}
         } catch (error) {
             throw {status: false, message: 'Ocorreu algum erro'};
             

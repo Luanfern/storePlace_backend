@@ -6,11 +6,12 @@ export class ShoppingKart{
         const ids = await this.repository.getKartProductsId(idShoppingKart)
         console.log(ids)
         if (ids.length == 0) {
-            return 'Sem produtos em seu carrinho'
+            return {status: false, message: 'Sem produtos em seu carrinho'}
         }
         const forQuery = ids.join(',')
         console.log(forQuery)
-        return await this.repository.getKartProducts(forQuery)
+        const products = await this.repository.getKartProducts(forQuery)
+        return {status: true, products: products}
     }
 
     async saveShoppingKartItem(idShoppingKart: number, productId: number): Promise<any> {

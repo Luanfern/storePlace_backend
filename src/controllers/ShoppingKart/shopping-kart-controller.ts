@@ -8,7 +8,7 @@ export class ShoppingKartController{
             const id = response.locals.token.id
             const kartId = await service.getIdShoppingKart(id)
             const getKart = await service.getShoppingKartItems(kartId)
-            response.status(200).send({products: getKart})
+            response.status(200).send(getKart)
         } catch (error) {
             console.log(error)
             response.status(200).send(error)
