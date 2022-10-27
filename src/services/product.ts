@@ -38,17 +38,26 @@ export class Product {
         const shoppingKartRepo = new ShoppingKartRepository()
         const extractRepo = new ExtractRepository()
 
-        const userInfos = await userRepo.getInfoById(userId)
-        const productsIdsShoppingKart = await shoppingKartRepo.getKartProductsId(userInfos.shoppingKartId)
-        const productsIds = productsIdsShoppingKart.join(',')
-        const productsSumShoppingKart = await this.repository.getSumPriceProducts(productsIds)
+        try {
+            const userInfos = await userRepo.getInfoById(userId)
+            const productsIdsShoppingKart = await shoppingKartRepo.getKartProductsId(userInfos.shoppingKartId)
 
-        if (userInfos.currency - productsSumShoppingKart < 0) {
-            return {status: false, message: 'sem créditos suficientes.'}
+            if (productsIdsShoppingKart <= 0) return {status: false, message: 'Sem produtos adicionados ao Carrinho!.'}
+
+            const productsIds = productsIdsShoppingKart.join(',')
+            const productsSumShoppingKart = await this.repository.getSumPriceProducts(productsIds)
+
+            if (userInfos.currency - productsSumShoppingKart < 0) {
+                return {status: false, message: 'sem créditos suficientes.'}
+            }
+
+            await extractRepo.saveExtracts(userId, productsSumShoppingKart, productsIds)
+            await shoppingKartRepo.saveItemKart(userInfos.shoppingKartId, '{}')
+
+            return {status: true, message: 'compra realizada com sucesso!'}
+        } catch (error) {
+            throw {status: false, message: 'Ocorreu algum erro'};
+            
         }
-
-        await extractRepo.saveExtracts(userId, productsSumShoppingKart, productsIds)
-
-        return {status: true, message: 'compra realizada com sucesso!'}
     }
 }
