@@ -57,5 +57,6 @@ router.post('/shoppingKart/removeProduct', middlewareToken.handle, shoppingKartC
 //EXTRACT
 router.post('/extracts/', middlewareToken.handle, extractController.getExtracts)
 router.post('/extracts/saveExtract', middlewareToken.handle, extractController.saveExtract)
+router.post('/extracts/extractInfo', middlewareToken.handle, extractController.getExtractsInfos)
 
 export { router }

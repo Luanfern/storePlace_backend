@@ -13,6 +13,16 @@ export class ExtractController{
         }
     }
 
+    public async getExtractsInfos(request: Request, response: Response){
+        const service = new Extract()
+        try {
+            const extracts = await service.getExtractInfo(request.body.extractId)
+            response.status(200).send(extracts)
+        } catch (error) {
+            response.status(200).send({status: "error"})
+        }
+    }
+
     public async saveExtract(request: Request, response: Response){
         const service = new Extract()
         try {

@@ -12,6 +12,15 @@ export class ExtractRepository {
         return extracts
     }
 
+    async getExtract(idExtract: number): Promise<any> {
+        const extracts = await this.prisma.extract.findUniqueOrThrow({
+            where: {
+                id: idExtract
+            }
+        })
+        return extracts
+    }
+
     async saveExtracts(userId: number, totalPrice: number, productsIds: string): Promise<any> {
         console.log(`insert  into extracts ("idUser", "total", "listProducts") values (${userId}, ${totalPrice}, '{${productsIds}}')`)
         const extracts = await this.prisma.$queryRawUnsafe(
