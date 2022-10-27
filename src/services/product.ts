@@ -51,6 +51,7 @@ export class Product {
                 return {status: false, message: 'sem créditos suficientes.'}
             }
 
+            await userRepo.updateCurrency(userId, userInfos.currency - productsSumShoppingKart)
             await extractRepo.saveExtracts(userId, productsSumShoppingKart, productsIds)
             await shoppingKartRepo.saveItemKart(userInfos.shoppingKartId, '{}')
 
