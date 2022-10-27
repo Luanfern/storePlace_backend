@@ -2,9 +2,17 @@ import { ExtractRepository } from "../repositories/Extract-repository/extract-re
 
 export class Extract{
     async getExtracts(idUser: number): Promise<any> {
+        let extracts: any 
         const extractRepository = new ExtractRepository()
-        const getExtracts = await extractRepository.getExtracts(idUser)
-        return getExtracts
+        await extractRepository.getExtracts(idUser).then((ex) => {extracts = ex})
+        console.log(extracts[0].listProducts)
+        await extractRepository.getExtractPriceProducts(extracts[0].listProducts.join(',')).then((listP) => {
+            console.log(extracts[0])
+            extracts[0].listProducts = listP
+        })
+
+        console.log(extracts)
+        return extracts
     }
 
     async saveExtract(idUser: number, productsIds: Array<number>): Promise<any> {
