@@ -70,8 +70,15 @@ export class ProductController{
         }
     }
 
-    public buyProduct(request: Request, response: Response, next: NextFunction){
+    public async buyProduct(request: Request, response: Response, next: NextFunction){
         const service = new Product()
-        response.status(200).send({return: 'buy Product'})
+        try {
+            const idUser = response.locals.token.id
+            const buyStatus = await service.buyProduct(idUser)
+            console.log(buyStatus)
+            response.status(200).send(buyStatus)
+        } catch (error) {
+            response.status(200).send({error})
+        }
     }
 }

@@ -28,12 +28,6 @@ export class ExtractRepository {
         return extracts
     }
 
-    async getExtractSumPriceProducts(ids: string): Promise<any> {
-        console.log('SELECT sum(price) FROM products p WHERE p.id in ('+ids+')')
-        const getKart: Array<{sum: number}> = await this.prisma.$queryRawUnsafe('SELECT sum(price) FROM products p WHERE p.id in ('+ids+')')
-        return getKart[0].sum
-    }
-
     async getExtractPriceProducts(ids: string): Promise<any> {
         console.log('SELECT * FROM products p WHERE p.id in ('+ids+')')
         const getKart = await this.prisma.$queryRawUnsafe('SELECT * FROM products p WHERE p.id in ('+ids+')')

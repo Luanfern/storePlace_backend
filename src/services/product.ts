@@ -1,5 +1,8 @@
 import { IProduct } from "../Interfaces/IProduct"
+import { ExtractRepository } from "../repositories/Extract-repository/extract-repository"
 import { ProductRepository } from "../repositories/Product-repository/product-repository"
+import { ShoppingKartRepository } from "../repositories/Shopping-Kart-repository/shopping-kart-repository"
+import { UserRepository } from "../repositories/User-repository/user-repository"
 
 export class Product {
     private repository = new ProductRepository()
@@ -29,5 +32,23 @@ export class Product {
     deleteProduct(userId: number, productId: number): any {
         return { userId: userId, productId: productId }
     }
-    //create purchase
+
+    async buyProduct(userId: number): Promise<any> {
+        const userRepo = new UserRepository()
+        const shoppingKartRepo = new ShoppingKartRepository()
+        const extractRepo = new ExtractRepository()
+
+        const userInfos = await userRepo.getInfoById(userId)
+        const productsIdsShoppingKart = await shoppingKartRepo.getKartProductsId(userInfos.shoppingKartId)
+        const productsIds = productsIdsShoppingKart.join(',')
+        const productsSumShoppingKart = await this.repository.getSumPriceProducts(productsIds)
+
+        if (userInfos.currency - productsSumShoppingKart < 0) {
+            return {status: false, message: 'sem créditos suficientes.'}
+        }
+
+        await extractRepo.saveExtracts(userId, productsSumShoppingKart, productsIds)
+
+        return {status: true, message: 'compra realizada com sucesso!'}
+    }
 }

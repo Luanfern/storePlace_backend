@@ -18,11 +18,4 @@ export class Extract{
         console.log(extracts)
         return extracts
     }
-
-    async saveExtract(idUser: number, productsIds: Array<number>): Promise<any> {
-        const extractRepository = new ExtractRepository()
-        const productList = productsIds.join(',')
-        const productsPriceSum = await extractRepository.getExtractSumPriceProducts(productList)
-        return await extractRepository.saveExtracts(idUser, productsPriceSum, productList)
-    }
 }

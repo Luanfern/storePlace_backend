@@ -57,5 +57,9 @@ export class ProductRepository {
         return  getProduct
     }
 
-    
+    async getSumPriceProducts(ids: string): Promise<any> {
+        console.log('SELECT sum(price) FROM products p WHERE p.id in ('+ids+')')
+        const getKart: Array<{sum: number}> = await this.prisma.$queryRawUnsafe('SELECT sum(price) FROM products p WHERE p.id in ('+ids+')')
+        return getKart[0].sum
+    }
 }

@@ -22,16 +22,4 @@ export class ExtractController{
             response.status(200).send({status: "error"})
         }
     }
-
-    public async saveExtract(request: Request, response: Response){
-        const service = new Extract()
-        try {
-            const id = response.locals.token.id
-            const extracts = await service.saveExtract(id, request.body.productsIds)
-            response.status(200).send({status: "ok", ret: extracts})
-        } catch (error) {
-            console.log(error)
-            response.status(200).send({status: "error"})
-        }
-    }
 }
